@@ -16,7 +16,8 @@ ray
 tensordict
 torchdata
 transformers>=4.49.0
-vllm>=0.7.3
+vllm==0.8.0
 wandb
 duckdb
 tensorboard
+flashinfer-python
