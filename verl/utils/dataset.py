@@ -14,6 +14,7 @@
 
 import math
 import os
+import glob
 from collections import defaultdict
 from io import BytesIO
 from typing import Any, Dict, List, Optional, Union
@@ -110,10 +111,49 @@ class RLHFDataset(Dataset, ImageProcessMixin):
         else:
             data_split = "train"
 
+        def get_data_files(data_path, data_split):
+            print(f"[DEBUG] Entered get_data_files with data_path={data_path}, data_split={data_split}")
+            
+            # Ensure path exists
+            if not os.path.exists(data_path):
+                raise ValueError(f"[ERROR] Path does not exist: {data_path}")
+            
+            base_dir = data_path  # already the correct base directory
+
+            # Glob for split-specific files
+            pattern = os.path.join(base_dir, f"{data_split}-*.parquet")
+            print(f"[DEBUG] Looking for files with pattern: {pattern}")
+            files = glob.glob(pattern)
+            files.sort()
+
+            if not files:
+                raise ValueError(f"No files found for split '{data_split}' at path '{data_path}'")
+
+            data_files = {data_split: files}
+
+            # If train, add val files too (for inspection or eval)
+            if data_split == "train":
+                val_pattern = os.path.join(base_dir, "val-*.parquet")
+                val_files = glob.glob(val_pattern)
+                val_files.sort()
+                if val_files:
+                    data_files["val"] = val_files
+
+            print(f"[DEBUG] Resolved data_files: {data_files}")
+            return data_files
+        
         if os.path.isdir(data_path):
-            self.dataset = load_dataset("parquet", data_dir=data_path, split=data_split)
+            self.dataset = load_dataset(
+                "parquet", 
+                data_files=get_data_files(data_path, data_split),
+                split=data_split
+            )
         elif os.path.isfile(data_path):
-            self.dataset = load_dataset("parquet", data_files=data_path, split=data_split)
+            self.dataset = load_dataset(
+                "parquet", 
+                data_files=get_data_files(data_path, data_split),
+                split=data_split
+            )
         else:  # remote dataset
             self.dataset = load_dataset(data_path, split=data_split)
 
