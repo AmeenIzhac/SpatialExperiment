@@ -20,7 +20,7 @@ import torch
 from transformers import PreTrainedTokenizer
 
 from ...protocol import DataProto
-from ...utils.reward_score import math_compute_score, r1v_compute_score, spatial_compute_score
+from ...utils.reward_score import math_compute_score, r1v_compute_score, spatial_compute_score, spatial3322_compute_score
 from .config import RewardConfig
 
 
@@ -40,6 +40,8 @@ class CustomRewardManager:
             self.compute_score: Callable[[str, str], RewardScore] = r1v_compute_score
         elif config.score_function == "spatial":
             self.compute_score: Callable[[str, str], RewardScore] = spatial_compute_score
+        elif config.score_function == "spatial3322":
+            self.compute_score: Callable[[str, str], RewardScore] = spatial3322_compute_score
         else:
             raise NotImplementedError(f"Unknown score function {config.score_function}.")
 
