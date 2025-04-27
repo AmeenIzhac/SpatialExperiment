@@ -7,7 +7,7 @@ MODEL_PATH=Qwen/Qwen2.5-VL-3B-Instruct
 FORMAT_PROMPT="""You FIRST think about the reasoning process as an internal monologue and then provide the final answer.
 The reasoning process MUST BE enclosed within <think> </think> tags. The final answer MUST BE enclosed within <answer> </answer> tags."""
 
-/home/hunar/miniforge3/envs/pixl-r1-env2/bin/python3 -m verl.trainer.main \
+python3 -m verl.trainer.main \
     config=scripts/config.yaml \
     data.train_files=hunarbatra/Clevr_SAT_3k@train \
     data.val_files=hunarbatra/Clevr_SAT_3k@val \
