@@ -424,5 +424,13 @@ def compute_kl(log_probs: torch.FloatTensor, ref_log_probs: torch.FloatTensor, k
 
     if kl_penalty == "full":
         return F.kl_div(ref_log_probs, log_probs, log_target=True, reduction="none").sum(-1)
+    
+    if kl_penalty == "chi2":
+        # Δ = log P − log Q  →  ratio r = exp(Δ)
+        r = (ref_log_probs - log_probs).exp() # P/Q per token
+        chi2 = (r - 1)**2 # (r-1)^2 per token
+        chi2 = torch.clamp(chi2, min=0, max=20)
+        
+        return chi2
 
     raise NotImplementedError(f"Unknown KL penalty: {kl_penalty}.")
