@@ -41,10 +41,7 @@ data and advancing MLLMs towards human-level visual reasoning.
 ### ✨ Updates
 - [2025/11/11] 🔥 Code base released.
 - [2025/11/08] 🔥 Model Checkpoints and Dataset released.
----
-
-**SpatialThinker** introduces *Spatially-Aware Policy Optimization (SAPO)* — a reinforcement learning framework that integrates structured spatial grounding with lexicographic, multi-objective reward shaping to teach multimodal large language models (MLLMs) fine-grained **3D spatial reasoning**.
-
+- 
 ---
 
 ### 🧩 Requirements
