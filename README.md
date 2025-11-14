@@ -3,7 +3,8 @@
   <a href="https://arxiv.org/abs/2511.07403">
     <img src="https://img.shields.io/badge/arXiv-2511.07403-b31b1b.svg" alt="arXiv">
   </a>
-  <a href="https://pixl.cs.ox.ac.uk/spatial-thinker">
+  <!-- <a href="https://pixl.cs.ox.ac.uk/spatial-thinker"> -->
+  <a href="https://hunarbatra.com/SpatialThinker">
     <img src="https://img.shields.io/badge/🌐%20Project%20Page-blue.svg" alt="Project Page">
   </a>
   <a href="https://huggingface.co/collections/OX-PIXL/spatialthinker">
