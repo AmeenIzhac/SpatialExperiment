@@ -3,13 +3,14 @@
   <a href="https://arxiv.org/abs/2511.07403">
     <img src="https://img.shields.io/badge/arXiv-2511.07403-b31b1b.svg" alt="arXiv">
   </a>
-  <a href="https://pixl.cs.ox.ac.uk/spatial-thinker">
+  <!-- <a href="https://pixl.cs.ox.ac.uk/spatial-thinker"> -->
+  <a href="https://hunarbatra.com/SpatialThinker">
     <img src="https://img.shields.io/badge/🌐%20Project%20Page-blue.svg" alt="Project Page">
   </a>
   <a href="https://huggingface.co/collections/OX-PIXL/spatialthinker">
     <img src="https://img.shields.io/badge/🤗%20Models%20%26%20Dataset-orange.svg" alt="Hugging Face Models">
   </a>
-  <a href="https://github.com/hunarbatra/SpatialThinker/stargazers">
+  <a href="https://github.com/hunarbatra/SpatialThinker/stargazers"> 
     <img src="https://img.shields.io/github/stars/hunarbatra/SpatialThinker?style=social" alt="GitHub Stars">
   </a>
 </p>
@@ -41,10 +42,7 @@ data and advancing MLLMs towards human-level visual reasoning.
 ### ✨ Updates
 - [2025/11/11] 🔥 Code base released.
 - [2025/11/08] 🔥 Model Checkpoints and Dataset released.
----
-
-**SpatialThinker** introduces *Spatially-Aware Policy Optimization (SAPO)* — a reinforcement learning framework that integrates structured spatial grounding with lexicographic, multi-objective reward shaping to teach multimodal large language models (MLLMs) fine-grained **3D spatial reasoning**.
-
+- 
 ---
 
 ### 🧩 Requirements
@@ -91,6 +89,68 @@ bash scripts/qwen_2_5_7b_stvqa_vanilla_grpo.sh
 python3 scripts/model_merger.py --local_dir path_to_your_last_actor_checkpoint
 ```
 ---
+
+### 🧪 Evaluation
+
+To evaluate **SpatialThinker** or baseline models across spatial reasoning benchmarks, use the provided `evaluation/eval.py` script.
+
+#### Basic Command Structure
+```bash
+python3 evaluation/eval.py \
+    --dataset <dataset_name> \
+    --template <prompt_template> \ # e.g. `reasoning`, `no_reasoning`, `spatial_thinker`  
+    --model_path <model_or_checkpoint> \
+    --cuda <gpu_id> \
+    --batch_size <num_samples_per_step> \
+    [--provider <inference_backend>] \ 
+    [--processor_name <tokenizer_or_processor>] \
+    [--custom_filename <output_name>]
+```
+
+#### ⚙️ Example: Evaluate Across Multiple Benchmarks
+
+```bash
+python3 evaluation/eval.py \
+    --dataset blink-spatial \
+    --template spatial_thinker \
+    --model_path OX-PIXL/SpatialThinker-3B \
+    --cuda 0 \
+    --batch_size 4
+```
+```bash
+python3 evaluation/eval.py \
+    --dataset spatialbench \
+    --template spatial_thinker \
+    --model_path OX-PIXL/SpatialThinker-3B \
+    --cuda 0 \
+    --batch_size 2
+```
+
+#### 📊 Example: Evaluate Using an API Provider (OpenAI / Anthropic)
+
+```bash
+python3 evaluation/eval.py \
+    --dataset stvqa \
+    --template reasoning \
+    --model_path gpt-4o-2024-05-13 \
+    --provider openai \
+    --batch_size 1
+```
+```bash
+python3 evaluation/eval.py \
+    --dataset stvqa \
+    --template reasoning \
+    --model_path claude-3-5-sonnet \
+    --provider anthropic \
+    --batch_size 1
+```
+
+#### Supported Evaluation Datasets
+`cv-bench`, `cv-bench-2D`, `cv-bench-3D`, `blink-spatial`, `blink-depth`, `blink-object`,  
+`blink-counting`, `blink-multi-view`, `blink-jigsaw`, `realworld_qa`, `spatialbench`, `mmvp`, `3dsrbench`,
+`lego`, `spatialreasoner`, `robospatial`, `robospatial_rgb`, `stvqa`, `hallusionbench`.
+
+
 ### ✅ TODOs
 
 - [x] Release Training Code  
@@ -121,8 +181,8 @@ If you find this repository useful in your project, please consider giving a ⭐
 This project builds upon the following open-source frameworks and works:
 - [**EasyR1**](https://github.com/hiyouga/EasyR1) — An efficient, scalable, multi-modality RL training framework based on veRL  
 - [**LLaMA-Factory**](https://github.com/hunarbatra/LLaMA-Factory) — Unified efficient fine-tuning of 100+ LLMs & VLMs  
-- [**Qwen2.5-VL**](https://arxiv.org/abs/2502.13923) — Multimodal LLM series from the Qwen family  
-
+- [**Qwen2.5-VL**](https://arxiv.org/abs/2502.13923) — Multimodal LLM series from the Qwen family
+  
 ---
 
 💡 *For more details, visit the [project page](https://pixl.cs.ox.ac.uk/spatial-thinker) and our [paper on arXiv](https://arxiv.org/abs/2511.07403).*
