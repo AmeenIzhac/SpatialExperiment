@@ -61,6 +61,11 @@ data and advancing MLLMs towards human-level visual reasoning.
 pip install -e .
 ```
 
+Download the required spaCy model:
+```bash
+python -m spacy download en_core_web_md
+```
+
 ---
 
 ### 🚀 Training
