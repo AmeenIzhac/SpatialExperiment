@@ -1,5 +1,8 @@
 set -x
 
+# Use /workspace for HuggingFace cache (more disk space available)
+export HF_HOME=/workspace/.cache/huggingface
+
 MODEL_PATH=Qwen/Qwen2.5-VL-3B-Instruct
 # MODEL_PATH=/gpfs/scratch/ehpc80/hf_cache_hb/huggingface/hub/Qwen2.5-VL-7B-Instruct/
 
@@ -9,14 +12,14 @@ MODEL_PATH=Qwen/Qwen2.5-VL-3B-Instruct
 #  Q. """
 
 # SPATIAL THINKER DATASETS
-DATA_FILE = "hunarbatra/STVQA-7K"
+DATA_FILE="hunarbatra/STVQA-7K"
 # DATA_FILE="/gpfs/scratch/ehpc80/hf_cache_hb/huggingface/hub/datasets--hunarbatra--spatialthinker_vqa_10k_filtered/snapshots/c43e6d9272e395d79b2bee20bd62d1c4a529d636/data/"
 
 
 python3 -m verl.trainer.main \
     config=scripts/config.yaml \
-    data.train_files="${DATA_FILE}@train" \
-    data.val_files="${DATA_FILE}@val" \
+    data.train_files="'${DATA_FILE}@train'" \
+    data.val_files="'${DATA_FILE}@val'" \
     worker.actor.model.model_path=${MODEL_PATH} \
     worker.reward.score_function=spatial_sgg \
     trainer.experiment_name=spatialthinker10k_3B \

@@ -75,7 +75,7 @@ worker:
 
 trainer:
   total_episodes: 15
-  logger: ["console", "wandb"]
+  logger: ["console"]
   project_name: easy_r1
   experiment_name: qwen25vl3b_cs_clevr_sat_3k
   n_gpus_per_node: 4
