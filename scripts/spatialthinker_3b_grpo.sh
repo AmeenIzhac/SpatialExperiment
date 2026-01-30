@@ -28,8 +28,6 @@ python3 -m verl.trainer.main \
     worker.actor.fsdp.torch_dtype=bf16 \
     worker.actor.optim.strategy=adamw_bf16 \
     worker.rollout.n=8 \
-    # trainer.max_steps=75 \
-    # trainer.total_episodes=75 \
     trainer.max_steps=2 \
     trainer.total_episodes=2 \
     data.answer_key="answer_option_text" \
@@ -38,6 +36,8 @@ python3 -m verl.trainer.main \
     data.max_prompt_length=6144 \
     data.max_response_length=2048 \
     worker.rollout.max_num_batched_tokens=8192 
+    # trainer.max_steps=75 \
+    # trainer.total_episodes=75 \
     # data.format_prompt="${FORMAT_PROMPT}" 
     # data.max_prompt_length=8192 \
     # data.max_response_length=2048 \
