@@ -28,8 +28,10 @@ python3 -m verl.trainer.main \
     worker.actor.fsdp.torch_dtype=bf16 \
     worker.actor.optim.strategy=adamw_bf16 \
     worker.rollout.n=8 \
-    trainer.max_steps=75 \
-    trainer.total_episodes=75 \
+    # trainer.max_steps=75 \
+    # trainer.total_episodes=75 \
+    trainer.max_steps=2 \
+    trainer.total_episodes=2 \
     data.answer_key="answer_option_text" \
     data.image_key="images" \
     data.val_batch_size=8 \
